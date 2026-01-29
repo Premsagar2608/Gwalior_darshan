@@ -1,0 +1,142 @@
+[
+  {
+    "name": "Clarks Inn Suites Gwalior",
+    "image": "assets/hotels/clarksinn.jpg",
+    "price": "₹2800/night",
+    "rating": 4.2,
+    "location": "Not Known",
+    "description": "Comfortable stay with modern rooms and hospitality.",
+    "lat": 26.2225,
+    "lng": 78.179
+  },
+  {
+    "name": "Hotel Adityaz",
+    "image": "assets/hotels/adityaz.jpg",
+    "price": "₹2300/night",
+    "rating": 3.9,
+    "location": "Airport Road",
+    "description": "Good budget stay with clean rooms.",
+    "lat": 26.2107,
+    "lng": 78.186
+  },
+  {
+    "name": "Hotel Grace",
+    "image": "assets/hotels/grace.jpeg",
+    "price": "₹2000/night",
+    "rating": 3.3,
+    "location": "City Center",
+    "description": "Decent hotel near railway station.",
+    "lat": 26.2197,
+    "lng": 78.1805
+  },
+  {
+    "name": "The Imperial Gwalior",
+    "image": "assets/hotels/shah imperial.avif",
+    "price": "₹3800/night",
+    "rating": 4.3,
+    "location": "Not Known",
+    "description": "Premium hotel offering comfort & amenities.",
+    "lat": 26.2105,
+    "lng": 78.1728
+  },
+  {
+    "name": "Hotel Landmark",
+    "image": "assets/hotels/landmark.jpeg",
+    "price": "₹1800/night",
+    "rating": 3.0,
+    "location": "Padav",
+    "description": "Budget stay with basic facilities.",
+    "lat": 26.2123,
+    "lng": 78.1809
+  },
+  {
+    "name": "Hotel Mayur",
+    "image": "assets/hotels/mayur.jpeg",
+    "price": "₹2500/night",
+    "rating": 3.8,
+    "location": "Lashkar",
+    "description": "Simple rooms with comfortable ambience.",
+    "lat": 26.2137,
+    "lng": 78.1689
+  },
+  {
+    "name": "Hotel Radiance",
+    "image": "assets/hotels/radiance.jpeg",
+    "price": "₹3000/night",
+    "rating": 3.5,
+    "location": "Not Known",
+    "description": "Modern hotel with good interior.",
+    "lat": 26.0,
+    "lng": 78.1835
+  },
+  {
+    "name": "Hotel Gwalior Regency",
+    "image": "assets/hotels/regency.jpeg",
+    "price": "₹4000/night",
+    "rating": 4.3,
+    "location": "City Center",
+    "description": "A luxury stay with premium services.",
+    "lat": 26.2185,
+    "lng": 78.1804
+  },
+  {
+    "name": "Hotel Silver Oak",
+    "image": "assets/hotels/silveroak.jpeg",
+    "price": "₹2400/night",
+    "rating": 4.1,
+    "location": "Not Known",
+    "description": "Great ambience and comfortable rooms.",
+    "lat": 26.2118,
+    "lng": 78.1711
+  },
+  {
+    "name": "The Villa by Parfait",
+    "image": "assets/hotels/janak villa.avif",
+    "price": "₹27000/night",
+    "rating": 4.2,
+    "location": "City Outskirts",
+    "description": "Premium villa stay with private luxury.",
+    "lat": 26.218,
+    "lng": 78.175
+  },
+  {
+    "name": "Neemrana's Deo Bagh",
+    "image": "assets/hotels/neem ranadeo bagh.jpeg",
+    "price": "₹8500/night",
+    "rating": 4.6,
+    "location": "Deo Bagh",
+    "description": "Heritage hotel with royal architecture.",
+    "lat": 26.2302,
+    "lng": 78.1699
+  },
+  {
+    "name": "Radisson Gwalior",
+    "image": "assets/hotels/raddison.avif",
+    "price": "₹5000/night",
+    "rating": 4.2,
+    "location": "City Center",
+    "description": "Premium hotel with all amenities.",
+    "lat": 26.222,
+    "lng": 78.175
+  },
+  {
+    "name": "Taj Usha Kiran Palace",
+    "image": "assets/hotels/tajusha kiran.jpeg",
+    "price": "₹14000/night",
+    "rating": 4.8,
+    "location": "Near Scindia School",
+    "description": "Royal heritage palace stay.",
+    "lat": 26.2298,
+    "lng": 78.1697
+  },
+  {
+    "name": "The Central Park Hotel",
+    "image": "assets/hotels/central park.jpg",
+    "price": "₹3200/night",
+    "rating": 3.7,
+    "location": "City Center",
+    "description": "Business-class hotel with good service.",
+    "lat": 26.21,
+    "lng": 78.18
+  }
+]

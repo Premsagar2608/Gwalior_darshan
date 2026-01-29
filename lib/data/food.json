@@ -1,0 +1,42 @@
+[
+  {
+    "name": "Bedai & Jalebi",
+    "image": "assets/food/bedai_jalebi.jpg",
+    "description": "Gwalior’s most famous breakfast: crispy bedai with hot jalebi.",
+    "location": "Bahadura Sweets, Lashkar",
+    "lat": 26.212,
+    "lng": 78.177
+  },
+  {
+    "name": "Kachori",
+    "image": "assets/food/kachori.jpg",
+    "description": "Spicy and crispy kachoris filled with masala.",
+    "location": "SS Kachori Wala, Phoolbagh",
+    "lat": 26.214,
+    "lng": 78.182
+  },
+  {
+    "name": "Poha & Jalebi",
+    "image": "assets/food/poha_jalebi.jpg",
+    "description": "Classic MP breakfast combo: soft poha with sweet jalebi.",
+    "location": "Madhav Poha Center, Thatipur",
+    "lat": 26.216,
+    "lng": 78.185
+  },
+  {
+    "name": "Lambi Paani Chaat",
+    "image": "assets/food/chaat.jpg",
+    "description": "Unique spicy chaat served with tangy liquids.",
+    "location": "Sarafa Bazaar",
+    "lat": 26.218,
+    "lng": 78.176
+  },
+  {
+    "name": "Gwalior Special Ladoo",
+    "image": "assets/food/ladoo.jpg",
+    "description": "Delicious motichoor ladoos famous across the city.",
+    "location": "Baba Ladoo Wala, Naya Bazar",
+    "lat": 26.219,
+    "lng": 78.178
+  }
+]

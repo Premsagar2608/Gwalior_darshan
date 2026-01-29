@@ -1,0 +1,132 @@
+[
+  {
+    "name": "Gopachal Parvat Jain Sculptures",
+    "image": "assets/destinations/gopachal-parvat-in-gwalior.jpg",
+    "description": "Ancient Jain rock-cut idols carved between the 7th–15th centuries.",
+    "story": "Gopachal Parvat (also known as Gopanchal Parvat) is a magnificent collection of ancient Jain rock-cut sculptures...",
+    "timing": "Sunrise to Sunset",
+    "ticket": "Free",
+    "lat": 26.2238,
+    "lng": 78.1759
+  },
+  {
+    "name": "Tomb of Muhammad Ghaus",
+    "image": "assets/destinations/mohhamud gous tomb.webp",
+    "description": "Magnificent Mughal-era sandstone tomb of Sufi saint Muhammad Ghaus.",
+    "story": "The Tomb of Muhammad Ghaus is an exquisite 16th-century Mughal monument...",
+    "timing": "Sunrise to Sunset",
+    "ticket": "Not Known",
+    "lat": 26.2258,
+    "lng": 78.1656
+  },
+  {
+    "name": "Gwalior Fort",
+    "image": "assets/destinations/Gwalior_Fort_front.webp",
+    "description": "Majestic hilltop fort known as the 'Gibraltar of India'.",
+    "story": "Gwalior Fort, often called the Gibraltar of India, is one of the most magnificent hill forts...",
+    "timing": "6 AM – 6 PM",
+    "ticket": "₹75 (Indians), ₹250 (Foreigners)",
+    "lat": 26.2215,
+    "lng": 78.178
+  },
+  {
+    "name": "Gwalior Zoo (Gandhi Zoo)",
+    "image": "assets/destinations/22587350_Gwalior Zoo, Gwalior4.webp",
+    "description": "Green oasis with tigers, deer, birds and heritage structures.",
+    "story": "Gwalior Zoo, also known as Gandhi Zoo, is a beloved urban wildlife center...",
+    "timing": "8 AM – 5 PM (Closed Friday)",
+    "ticket": "₹20–₹40 approx",
+    "lat": 26.2139,
+    "lng": 78.1778
+  },
+  {
+    "name": "Jai Vilas Palace & Scindia Museum",
+    "image": "assets/destinations/jaivilas palace.jpeg",
+    "description": "19th-century palace with European architectural influence and royal artifacts.",
+    "story": "Jai Vilas Palace was built in 1874 by Maharaja Jayajirao Scindia...",
+    "timing": "10 AM – 5 PM (Closed Monday)",
+    "ticket": "₹150 approx",
+    "lat": 26.2101,
+    "lng": 78.1756
+  },
+  {
+    "name": "Man Mandir Palace",
+    "image": "assets/destinations/maan mandir palace.jpg",
+    "description": "Historic palace inside Gwalior Fort known for tile work & chambers.",
+    "story": "Man Mandir Palace, built by King Man Singh Tomar, is famed for its artistic beauty...",
+    "timing": "6 AM – 6 PM",
+    "ticket": "Included in Fort ticket",
+    "lat": 26.221,
+    "lng": 78.1799
+  },
+  {
+    "name": "Padavali & Mitaoli Temples",
+    "image": "assets/destinations/mitawali padawali.jpeg",
+    "description": "Believed to be the inspiration behind India's Parliament.",
+    "story": "Padavali and Mitaoli are twin temples known for early central Indian architecture...",
+    "timing": "Sunrise to Sunset",
+    "ticket": "Not Known",
+    "lat": 26.0385,
+    "lng": 77.7841
+  },
+  {
+    "name": "Sai Baba Temple",
+    "image": "assets/destinations/sai baba temple.jpg",
+    "description": "A peaceful and spiritual center dedicated to Sai Baba.",
+    "story": "The Sai Baba Temple of Gwalior is a serene devotional space...",
+    "timing": "6 AM – 10 PM",
+    "ticket": "Free",
+    "lat": 26.2167,
+    "lng": 78.1822
+  },
+  {
+    "name": "Sas-Bahu Temple",
+    "image": "assets/destinations/saas bahu temple.jpeg",
+    "description": "11th-century temple pair with brilliant carvings inside Gwalior Fort.",
+    "story": "The Sas-Bahu temples are famous for their intricate stone carvings...",
+    "timing": "6 AM – 6 PM",
+    "ticket": "Included in Fort ticket",
+    "lat": 26.2231,
+    "lng": 78.1795
+  },
+  {
+    "name": "Sun Temple (Surya Mandir)",
+    "image": "assets/destinations/sun temple.jpeg",
+    "description": "Modern sandstone temple inspired by Konark Sun Temple.",
+    "story": "Gwalior’s Sun Temple is a beautiful Birla-built shrine...",
+    "timing": "6 AM – 8 PM",
+    "ticket": "Free",
+    "lat": 26.2185,
+    "lng": 78.1825
+  },
+  {
+    "name": "Teli Ka Mandir",
+    "image": "assets/destinations/teli ka mandir.jpeg",
+    "description": "Tallest temple inside Gwalior Fort with a blend of Dravidian architecture.",
+    "story": "Teli Ka Mandir is known for its fusion of North and South Indian designs...",
+    "timing": "6 AM – 6 PM",
+    "ticket": "Included in Fort ticket",
+    "lat": 26.2229,
+    "lng": 78.1789
+  },
+  {
+    "name": "Tigra Dam",
+    "image": "assets/destinations/tighra.jpeg",
+    "description": "Popular picnic spot offering boating and scenic views.",
+    "story": "Tigra Dam forms a major water reservoir serving Gwalior...",
+    "timing": "9 AM – 6 PM",
+    "ticket": "₹20 approx",
+    "lat": 26.0535,
+    "lng": 78.0938
+  },
+  {
+    "name": "Tomb of Tansen",
+    "image": "assets/destinations/tomb of tansen.webp",
+    "description": "Resting place of the legendary musician Tansen.",
+    "story": "The Tomb of Tansen is a sacred place for music lovers...",
+    "timing": "Sunrise to Sunset",
+    "ticket": "Free",
+    "lat": 26.2261,
+    "lng": 78.1659
+  }
+]
