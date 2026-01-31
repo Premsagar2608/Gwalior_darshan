@@ -4,7 +4,6 @@ import 'package:url_launcher/url_launcher.dart';
 class ContactUsScreen extends StatelessWidget {
   const ContactUsScreen({super.key});
 
-  // 🔗 Function to launch Email
   Future<void> _launchEmail() async {
     final Uri emailUri = Uri(
       scheme: 'mailto',
@@ -12,52 +11,50 @@ class ContactUsScreen extends StatelessWidget {
       query: 'subject=Support Needed&body=Hello, I need help regarding...',
     );
 
-    if (!await launchUrl(emailUri)) {
+    if (!await launchUrl(emailUri, mode: LaunchMode.externalApplication)) {
       throw "Could not open email app";
     }
   }
 
-  // 🔗 Function to launch Phone Dialer
   Future<void> _launchPhone() async {
     final Uri phoneUri = Uri(
       scheme: 'tel',
       path: '+919981863663',
     );
 
-    if (!await launchUrl(phoneUri)) {
+    if (!await launchUrl(phoneUri, mode: LaunchMode.externalApplication)) {
       throw "Could not open dialer";
     }
   }
 
   @override
   Widget build(BuildContext context) {
+    const primaryBlue = Color(0xFF1746A2);
+
     return Scaffold(
       appBar: AppBar(
         title: const Text(
           "Contact Us",
           style: TextStyle(fontWeight: FontWeight.bold),
         ),
-        backgroundColor: const Color(0xFF1746A2),
+        backgroundColor: primaryBlue,
         foregroundColor: Colors.white,
         centerTitle: true,
       ),
-
       body: Padding(
         padding: const EdgeInsets.all(20),
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-
-            // HEADER
             Row(
-              children: [
+              children: const [
                 CircleAvatar(
                   radius: 35,
-                  backgroundColor: const Color(0xFF1746A2),
-                  child: const Icon(Icons.support_agent, color: Colors.white, size: 35),
+                  backgroundColor: primaryBlue,
+                  child: Icon(Icons.support_agent, color: Colors.white, size: 35),
                 ),
-                const SizedBox(width: 15),
-                const Expanded(
+                SizedBox(width: 15),
+                Expanded(
                   child: Text(
                     "We're Here to Help You!",
                     style: TextStyle(fontSize: 22, fontWeight: FontWeight.bold),
@@ -68,29 +65,49 @@ class ContactUsScreen extends StatelessWidget {
 
             const SizedBox(height: 25),
 
-            // EMAIL (Clickable)
-            GestureDetector(
-              onTap: _launchEmail,
-              child: contactTile(
-                icon: Icons.email,
-                title: "Email Support",
-                subtitle: "Premsagar998186@gmail.com",
+            // EMAIL (no email text shown)
+            contactTile(
+              icon: Icons.email,
+              title: "Email Support",
+              subtitle: "Contact us via email",
+              trailing: ElevatedButton.icon(
+                onPressed: _launchEmail,
+                icon: const Icon(Icons.mail, size: 18),
+                label: const Text("Email"),
+                style: ElevatedButton.styleFrom(
+                  backgroundColor: primaryBlue,
+                  foregroundColor: Colors.white,
+                  padding: const EdgeInsets.symmetric(horizontal: 14, vertical: 10),
+                  shape: RoundedRectangleBorder(
+                    borderRadius: BorderRadius.circular(10),
+                  ),
+                ),
               ),
             ),
 
-            const SizedBox(height: 10),
+            const SizedBox(height: 12),
 
-            // PHONE (Clickable)
-            GestureDetector(
-              onTap: _launchPhone,
-              child: contactTile(
-                icon: Icons.phone,
-                title: "Phone Support",
-                subtitle: "+91 9981863663",
+            // PHONE (no number shown)
+            contactTile(
+              icon: Icons.phone,
+              title: "Call Now",
+              subtitle: "Talk to our support team",
+              trailing: ElevatedButton.icon(
+                onPressed: _launchPhone,
+                icon: const Icon(Icons.call, size: 18),
+                label: const Text("Call"),
+                style: ElevatedButton.styleFrom(
+                  backgroundColor: primaryBlue,
+                  foregroundColor: Colors.white,
+                  padding: const EdgeInsets.symmetric(horizontal: 14, vertical: 10),
+                  shape: RoundedRectangleBorder(
+                    borderRadius: BorderRadius.circular(10),
+                  ),
+                ),
               ),
             ),
 
-            const SizedBox(height: 10),
+            const SizedBox(height: 12),
 
             // ADDRESS
             contactTile(
@@ -115,7 +132,10 @@ class ContactUsScreen extends StatelessWidget {
     required IconData icon,
     required String title,
     required String subtitle,
+    Widget? trailing,
   }) {
+    const primaryBlue = Color(0xFF1746A2);
+
     return Container(
       padding: const EdgeInsets.all(14),
       decoration: BoxDecoration(
@@ -131,20 +151,22 @@ class ContactUsScreen extends StatelessWidget {
       ),
       child: Row(
         children: [
-          Icon(icon, size: 30, color: Color(0xFF1746A2)),
+          Icon(icon, size: 30, color: primaryBlue),
           const SizedBox(width: 15),
           Expanded(
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                Text(title,
-                    style: const TextStyle(
-                        fontSize: 18, fontWeight: FontWeight.bold)),
-                Text(subtitle,
-                    style: const TextStyle(fontSize: 15, color: Colors.grey)),
+                Text(
+                  title,
+                  style: const TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
+                ),
+                const SizedBox(height: 2),
+                Text(subtitle, style: const TextStyle(fontSize: 15, color: Colors.grey)),
               ],
             ),
-          )
+          ),
+          if (trailing != null) trailing,
         ],
       ),
     );

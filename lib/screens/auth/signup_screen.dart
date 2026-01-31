@@ -3,7 +3,6 @@ import 'package:provider/provider.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 
 import '../../services/auth_service.dart';
-import '../../services/user_profile_service.dart';
 
 class SignupScreen extends StatefulWidget {
   const SignupScreen({super.key});
@@ -18,56 +17,173 @@ class _SignupScreenState extends State<SignupScreen> {
   final _name = TextEditingController();
   final _email = TextEditingController();
   final _password = TextEditingController();
+  final _confirmPassword = TextEditingController();
 
-  // ✅ NEW
-  final _location = TextEditingController();
-  String _userType = "Traveller"; // or "Local"
+  // ✅ Focus nodes (to detect "field completed")
+  final _nameFocus = FocusNode();
+  final _emailFocus = FocusNode();
+  final _passwordFocus = FocusNode();
+  final _confirmFocus = FocusNode();
 
   bool _loading = false;
   bool _obscure = true;
+  bool _obscureConfirm = true;
+
+  // ✅ Track which fields have been "touched" (completed once)
+  bool _touchedName = false;
+  bool _touchedEmail = false;
+  bool _touchedPassword = false;
+  bool _touchedConfirm = false;
+
+  @override
+  void initState() {
+    super.initState();
+
+    // When a field loses focus => mark touched => validate only that field visually
+    _nameFocus.addListener(() {
+      if (!_nameFocus.hasFocus) {
+        setState(() => _touchedName = true);
+      }
+    });
+
+    _emailFocus.addListener(() {
+      if (!_emailFocus.hasFocus) {
+        setState(() => _touchedEmail = true);
+      }
+    });
+
+    _passwordFocus.addListener(() {
+      if (!_passwordFocus.hasFocus) {
+        setState(() {
+          _touchedPassword = true;
+          // If password changes, confirm should re-check after leaving confirm field
+        });
+      }
+    });
+
+    _confirmFocus.addListener(() {
+      if (!_confirmFocus.hasFocus) {
+        setState(() => _touchedConfirm = true);
+      }
+    });
+  }
 
   @override
   void dispose() {
     _name.dispose();
     _email.dispose();
     _password.dispose();
-    _location.dispose();
+    _confirmPassword.dispose();
+
+    _nameFocus.dispose();
+    _emailFocus.dispose();
+    _passwordFocus.dispose();
+    _confirmFocus.dispose();
+
     super.dispose();
   }
 
+  bool _isValidEmail(String email) {
+    final regex = RegExp(r"^[\w\.\-]+@([\w\-]+\.)+[\w]{2,}$");
+    return regex.hasMatch(email.trim());
+  }
+
+  String? _validateName(String? v) {
+    final value = (v ?? "").trim();
+    if (value.isEmpty) return "Name required";
+    return null;
+  }
+
+  String? _validateEmail(String? v) {
+    final value = (v ?? "").trim();
+    if (value.isEmpty) return "Email required";
+    if (!_isValidEmail(value)) return "Please provide a correct email";
+    return null;
+  }
+
+  String? _validatePassword(String? v) {
+    final value = (v ?? "").trim();
+    if (value.isEmpty) return "Password required";
+    if (value.length < 6) return "Min 6 characters";
+    return null;
+  }
+
+  String? _validateConfirm(String? v) {
+    final value = (v ?? "").trim();
+    if (value.isEmpty) return "Confirm password required";
+    if (value != _password.text.trim()) return "Password is not matching";
+    return null;
+  }
+
   Future<void> _signup() async {
-    if (!_formKey.currentState!.validate()) return;
+    // ✅ On button click, show errors for all fields
+    setState(() {
+      _touchedName = true;
+      _touchedEmail = true;
+      _touchedPassword = true;
+      _touchedConfirm = true;
+    });
+
+    if (!_formKey.currentState!.validate()) {
+      ScaffoldMessenger.of(context).showSnackBar(
+        const SnackBar(
+          content: Text("Please fix the highlighted fields."),
+          behavior: SnackBarBehavior.floating,
+          duration: Duration(seconds: 2),
+        ),
+      );
+      return;
+    }
 
     setState(() => _loading = true);
 
     try {
-      // 1) Create Auth user
       await context.read<AuthService>().signUpWithEmail(
         email: _email.text.trim(),
         password: _password.text.trim(),
         name: _name.text.trim(),
       );
 
-      // 2) Get current user uid
-      final user = FirebaseAuth.instance.currentUser;
-      if (user == null) throw "User not found after signup";
-
-      // 3) Save profile to Firestore (ONE TIME)
-      await UserProfileService().createUserProfile(
-        uid: user.uid,
-        name: _name.text.trim(),
-        email: _email.text.trim(),
-        location: _location.text.trim(),
-        userType: _userType,
-      );
-
-      // Done - go back (AuthGate will show Home automatically)
       if (!mounted) return;
-      Navigator.pop(context);
-    } catch (e) {
+
+      Navigator.of(context).pop(); // ✅ AuthGate shows Home automatically
+    } on FirebaseAuthException catch (e) {
+      if (!mounted) return;
+
+      String msg;
+      switch (e.code) {
+        case 'invalid-email':
+          msg = "Please provide a correct email address.";
+          break;
+
+        case 'email-already-in-use':
+        case 'account-exists-with-different-credential':
+          msg = "This email is already registered.";
+          break;
+
+        case 'weak-password':
+          msg = "Password is too weak. Use at least 6 characters.";
+          break;
+
+        default:
+          msg = "Signup failed. Please try again.";
+      }
+
+      ScaffoldMessenger.of(context).showSnackBar(
+        SnackBar(
+          content: Text(msg),
+          behavior: SnackBarBehavior.floating,
+          duration: const Duration(seconds: 3),
+        ),
+      );
+    } catch (_) {
       if (!mounted) return;
       ScaffoldMessenger.of(context).showSnackBar(
-        SnackBar(content: Text("Signup failed: $e")),
+        const SnackBar(
+          content: Text("Signup failed. Please try again."),
+          behavior: SnackBarBehavior.floating,
+          duration: Duration(seconds: 3),
+        ),
       );
     } finally {
       if (mounted) setState(() => _loading = false);
@@ -88,42 +204,48 @@ class _SignupScreenState extends State<SignupScreen> {
         padding: const EdgeInsets.all(18),
         child: Form(
           key: _formKey,
+          autovalidateMode: AutovalidateMode.disabled, // ✅ no typing validation
           child: Column(
             children: [
               // NAME
               TextFormField(
                 controller: _name,
+                focusNode: _nameFocus,
                 decoration: const InputDecoration(
                   labelText: "Name",
                   border: OutlineInputBorder(),
                 ),
-                validator: (v) {
-                  if ((v ?? "").trim().isEmpty) return "Name required";
-                  return null;
+                textInputAction: TextInputAction.next,
+                onEditingComplete: () {
+                  setState(() => _touchedName = true);
+                  FocusScope.of(context).requestFocus(_emailFocus);
                 },
+                validator: (v) => _touchedName ? _validateName(v) : null,
               ),
               const SizedBox(height: 12),
 
               // EMAIL
               TextFormField(
                 controller: _email,
+                focusNode: _emailFocus,
                 keyboardType: TextInputType.emailAddress,
                 decoration: const InputDecoration(
                   labelText: "Email",
                   border: OutlineInputBorder(),
                 ),
-                validator: (v) {
-                  final value = (v ?? "").trim();
-                  if (value.isEmpty) return "Email required";
-                  if (!value.contains("@")) return "Enter valid email";
-                  return null;
+                textInputAction: TextInputAction.next,
+                onEditingComplete: () {
+                  setState(() => _touchedEmail = true);
+                  FocusScope.of(context).requestFocus(_passwordFocus);
                 },
+                validator: (v) => _touchedEmail ? _validateEmail(v) : null,
               ),
               const SizedBox(height: 12),
 
               // PASSWORD
               TextFormField(
                 controller: _password,
+                focusNode: _passwordFocus,
                 obscureText: _obscure,
                 decoration: InputDecoration(
                   labelText: "Password",
@@ -133,73 +255,41 @@ class _SignupScreenState extends State<SignupScreen> {
                     onPressed: () => setState(() => _obscure = !_obscure),
                   ),
                 ),
-                validator: (v) {
-                  final value = (v ?? "").trim();
-                  if (value.isEmpty) return "Password required";
-                  if (value.length < 6) return "Min 6 characters";
-                  return null;
+                textInputAction: TextInputAction.next,
+                onEditingComplete: () {
+                  setState(() => _touchedPassword = true);
+                  FocusScope.of(context).requestFocus(_confirmFocus);
                 },
+                validator: (v) => _touchedPassword ? _validatePassword(v) : null,
               ),
               const SizedBox(height: 12),
 
-              // ✅ LOCATION
+              // CONFIRM PASSWORD
               TextFormField(
-                controller: _location,
-                decoration: const InputDecoration(
-                  labelText: "Your Location (City)",
-                  hintText: "e.g. Gwalior, Indore, Delhi",
-                  border: OutlineInputBorder(),
-                  prefixIcon: Icon(Icons.location_on),
+                controller: _confirmPassword,
+                focusNode: _confirmFocus,
+                obscureText: _obscureConfirm,
+                decoration: InputDecoration(
+                  labelText: "Confirm Password",
+                  border: const OutlineInputBorder(),
+                  suffixIcon: IconButton(
+                    icon: Icon(_obscureConfirm
+                        ? Icons.visibility
+                        : Icons.visibility_off),
+                    onPressed: () =>
+                        setState(() => _obscureConfirm = !_obscureConfirm),
+                  ),
                 ),
-                validator: (v) {
-                  if ((v ?? "").trim().isEmpty) return "Location required";
-                  return null;
+                textInputAction: TextInputAction.done,
+                onEditingComplete: () {
+                  setState(() => _touchedConfirm = true);
+                  FocusScope.of(context).unfocus();
                 },
-              ),
-              const SizedBox(height: 12),
-
-              // ✅ Local/Traveller
-              Container(
-                width: double.infinity,
-                padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 10),
-                decoration: BoxDecoration(
-                  border: Border.all(color: Colors.black26),
-                  borderRadius: BorderRadius.circular(12),
-                ),
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    const Text(
-                      "You are",
-                      style: TextStyle(fontSize: 14, fontWeight: FontWeight.w700),
-                    ),
-                    const SizedBox(height: 8),
-                    Row(
-                      children: [
-                        Expanded(
-                          child: ChoiceChip(
-                            label: const Text("Local"),
-                            selected: _userType == "Local",
-                            onSelected: (_) => setState(() => _userType = "Local"),
-                          ),
-                        ),
-                        const SizedBox(width: 10),
-                        Expanded(
-                          child: ChoiceChip(
-                            label: const Text("Traveller"),
-                            selected: _userType == "Traveller",
-                            onSelected: (_) => setState(() => _userType = "Traveller"),
-                          ),
-                        ),
-                      ],
-                    ),
-                  ],
-                ),
+                validator: (v) => _touchedConfirm ? _validateConfirm(v) : null,
               ),
 
-              const SizedBox(height: 14),
+              const SizedBox(height: 16),
 
-              // BUTTON
               SizedBox(
                 width: double.infinity,
                 child: ElevatedButton(
@@ -213,7 +303,10 @@ class _SignupScreenState extends State<SignupScreen> {
                       ? const SizedBox(
                     height: 18,
                     width: 18,
-                    child: CircularProgressIndicator(strokeWidth: 2),
+                    child: CircularProgressIndicator(
+                      strokeWidth: 2,
+                      color: Colors.white,
+                    ),
                   )
                       : const Text("Create Account"),
                 ),

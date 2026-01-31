@@ -105,32 +105,7 @@ class ProfileScreen extends StatelessWidget {
                               ),
                               const SizedBox(height: 10),
 
-                              // ✅ FIRESTORE CHIPS
-                              StreamBuilder(
-                                stream: UserProfileService().profileStream(),
-                                builder: (context, snapshot) {
-                                  String location = "Gwalior";
-                                  String userType = "Traveller";
 
-                                  if (snapshot.hasData && snapshot.data!.data() != null) {
-                                    final data = snapshot.data!.data() as Map<String, dynamic>;
-                                    location = (data["location"] ?? "Gwalior").toString();
-                                    userType = (data["userType"] ?? "Traveller").toString();
-                                  }
-
-                                  return Wrap(
-                                    spacing: 8,
-                                    runSpacing: 8,
-                                    children: [
-                                      _chip(location, Icons.location_on),
-                                      _chip(
-                                        userType,
-                                        userType == "Local" ? Icons.home : Icons.explore,
-                                      ),
-                                    ],
-                                  );
-                                },
-                              ),
                             ],
                           ),
                         ),

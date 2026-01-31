@@ -8,9 +8,9 @@
   "client": [
     {
       "client_info": {
-        "mobilesdk_app_id": "1:330160360041:android:27229a97d91a6e105eb0f8",
+        "mobilesdk_app_id": "1:330160360041:android:b247add6f2384b2e5eb0f8",
         "android_client_info": {
-          "package_name": "com.example.gwalior_darshan"
+          "package_name": "com.gwalior_darshan"
         }
       },
       "oauth_client": [

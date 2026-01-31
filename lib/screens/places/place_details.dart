@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:url_launcher/url_launcher.dart';
-import '/services/favorite_service.dart';
+import '../../services/favorite_service.dart';
 
 class PlaceDetails extends StatefulWidget {
   final Map place;

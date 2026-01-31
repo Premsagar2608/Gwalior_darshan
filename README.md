@@ -12,12 +12,6 @@ A Flutter travel discovery app for exploring Gwalior’s famous places, food, an
 - Smooth UI + Splash screen
 - Clean architecture ready for scaling
 
-## 📸 Screenshots
-
-| Home                       | Details                       | Favorites                 |
-|----------------------------|-------------------------------|---------------------------|
-| ![](screenshots/home.jpeg) | ![](screenshots/details.jpeg) | ![](screenshots/fav.jpeg) |
-
 ## 🧠 Tech Stack
 - Flutter (Dart)
 - Firebase / Local storage (if used)

@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import '../../services/auth_service.dart';
 import 'signup_screen.dart';
 
@@ -29,21 +30,56 @@ class _LoginScreenState extends State<LoginScreen> {
     if (!_formKey.currentState!.validate()) return;
 
     setState(() => _loading = true);
+
     try {
       await context.read<AuthService>().signInWithEmail(
         email: _email.text.trim(),
         password: _password.text.trim(),
       );
       // ✅ AuthGate will automatically move to HomeScreen
+    } on FirebaseAuthException catch (e) {
+      if (!mounted) return;
+
+      String msg;
+      switch (e.code) {
+        case 'wrong-password':
+        case 'invalid-credential': // ✅ newer Firebase mostly returns this
+          msg = "Wrong password! Kindly provide correct details.";
+          break;
+
+        case 'user-not-found':
+          msg = "No account found with this email. Please sign up first.";
+          break;
+
+        case 'invalid-email':
+          msg = "Invalid email format. Please enter a valid email.";
+          break;
+
+        case 'user-disabled':
+          msg = "This account has been disabled. Contact support.";
+          break;
+
+        case 'too-many-requests':
+          msg = "Too many attempts. Please try again after some time.";
+          break;
+
+        default:
+          msg = "Login failed. Please check your details and try again.";
+      }
+
+      ScaffoldMessenger.of(context).showSnackBar(
+        SnackBar(content: Text(msg)),
+      );
     } catch (e) {
       if (!mounted) return;
       ScaffoldMessenger.of(context).showSnackBar(
-        SnackBar(content: Text("Login failed: $e")),
+        const SnackBar(content: Text("Login failed. Please try again.")),
       );
     } finally {
       if (mounted) setState(() => _loading = false);
     }
   }
+
 
   @override
   Widget build(BuildContext context) {

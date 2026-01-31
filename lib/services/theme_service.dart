@@ -6,10 +6,10 @@ class ThemeService extends ChangeNotifier {
   bool isDarkMode = false;
 
   ThemeService() {
-    loadTheme();
+    _loadTheme();
   }
 
-  Future<void> loadTheme() async {
+  Future<void> _loadTheme() async {
     final pref = await SharedPreferences.getInstance();
     isDarkMode = pref.getBool(key) ?? false;
     notifyListeners();

@@ -2,8 +2,6 @@ import 'dart:async';
 import 'dart:convert';
 import 'package:curved_navigation_bar/curved_navigation_bar.dart';
 import 'package:flutter/material.dart';
-import 'package:gwalior_darshan/screens/food/food_list.dart';
-import 'package:gwalior_darshan/screens/hotels/hotels_list.dart';
 import 'package:gwalior_darshan/screens/places/places_list.dart';
 import 'package:gwalior_darshan/screens/profile/profile_screen.dart';
 import 'package:gwalior_darshan/screens/search/search_screen.dart';
@@ -11,6 +9,8 @@ import 'package:gwalior_darshan/screens/transport/transport_screen.dart';
 import 'package:provider/provider.dart';
 import '../services/theme_service.dart';
 import 'favorites/favorites_screen.dart';
+import 'food/food_list.dart';
+import 'hotels/hotels_list.dart';
 import 'map/map_screen.dart';
 
 class HomeScreen extends StatefulWidget {
@@ -115,15 +115,15 @@ class _HomeScreenState extends State<HomeScreen> {
               },
             ),
 
-            IconButton(
-              icon: Icon(
-                isDark ? Icons.dark_mode : Icons.light_mode,
-                color: Colors.white,
-              ),
-              onPressed: () {
-                Provider.of<ThemeService>(context, listen: false).toggleTheme();
-              },
-            ),
+            // IconButton(
+            //   icon: Icon(
+            //     isDark ? Icons.dark_mode : Icons.light_mode,
+            //     color: Colors.white,
+            //   ),
+            //   onPressed: () {
+            //     Provider.of<ThemeService>(context, listen: false).toggleTheme();
+            //   },
+            // ),
           ],
       ),
 
